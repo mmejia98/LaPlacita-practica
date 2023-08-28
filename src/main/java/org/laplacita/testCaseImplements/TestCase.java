@@ -21,6 +21,6 @@ public class TestCase {
 
     @AfterClass
     public void afterClass(){
-        browser.close();
+        //browser.close();
     }
 }

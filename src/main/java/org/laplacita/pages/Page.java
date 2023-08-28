@@ -1,9 +1,6 @@
 package org.laplacita.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -43,6 +40,12 @@ public class Page {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    public void scrollAndClickElement(WebElement element){
+        scrollToElement(element);
+        WebElement link = fluentWaitWebElementClickable(element);
+        link.click();
+    }
+
     public WebElement fluentWait(By loc){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(this.browser)
                 .withTimeout(Duration.ofSeconds(30))
@@ -61,5 +64,9 @@ public class Page {
                return driver.getPageSource().contains(txt);
            }
         });
+    }
+
+    private void scrollToElement(WebElement element){
+        ((JavascriptExecutor) browser).executeScript("arguments[0].scrollIntoView(true)", element);
     }
 }
