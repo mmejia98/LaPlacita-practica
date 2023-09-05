@@ -67,6 +67,37 @@ public class Page {
     }
 
     private void scrollToElement(WebElement element){
-        ((JavascriptExecutor) browser).executeScript("arguments[0].scrollIntoView(true)", element);
+        ((JavascriptExecutor) browser).executeScript("arguments[0].scrollIntoView(true);", element);
     }
+
+    public WebElement scrollWebElement(WebElement element){
+        ((JavascriptExecutor) browser).executeScript("arguments[0].scrollIntoView(true);", element);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return this.fluentWaitWebElement(element);
+    }
+
+    public void scrollUp(){
+        JavascriptExecutor js = (JavascriptExecutor) browser;
+        js.executeScript("window.scrollBy(0,-5000)");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void scrollBy(double x, double y){
+        JavascriptExecutor js = (JavascriptExecutor) browser;
+        js.executeScript("window.scrollBy("+x+","+y+")");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

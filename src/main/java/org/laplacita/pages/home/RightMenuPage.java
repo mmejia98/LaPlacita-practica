@@ -16,14 +16,14 @@ public class RightMenuPage extends Page {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//*[@id='navbarNavDropdown']/div/ul[2]/li")
+    @FindBy(xpath = "//*[@id='navbarNavDropdown']/div/ul[2]/li/a")
     private static List<WebElement> menuItems;
 
     public enum Menu implements IMenu{
         NUEVOS("NUEVOS"),
-        DETACADOS("DESTACADOS\n(CURRENT)"),
-        MENOS_DE_5("MENOS DE $5\n(CURRENT)"),
-        MENOS_DE_10("MENOS DE $10\n(CURRENT)");
+        DETACADOS("DESTACADOS"),
+        MENOS_DE_5("MENOS DE $5"),
+        MENOS_DE_10("MENOS DE $10");
 
         private String name;
 
@@ -34,7 +34,7 @@ public class RightMenuPage extends Page {
         @Override
         public void click() {
             for (WebElement item : menuItems){
-                if(this.name.contains(item.getText())){
+                if(item.getText().contains(this.name)){
                     item.click();
                     break;
                 }

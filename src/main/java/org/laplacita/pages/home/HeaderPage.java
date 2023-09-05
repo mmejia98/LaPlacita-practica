@@ -19,9 +19,17 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//img[@alt='Site-Logo-Header']")
     public WebElement logoHeader;
 
+    @FindBy(xpath = "//a[@tooltip='Carrito']")
+    private WebElement carrito;
+
     public void searchItems(String txt){
         searchBarInput.sendKeys(txt);
         searchBarInput.sendKeys(Keys.ENTER);
+    }
+
+    public void carritoClick(){
+        this.scrollUp();
+        this.fluentWaitWebElement(carrito).click();
     }
 
 }
