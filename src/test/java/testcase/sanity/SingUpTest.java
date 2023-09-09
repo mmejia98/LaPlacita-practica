@@ -5,8 +5,6 @@ import org.laplacita.pages.home.TopHeaderPage;
 import org.laplacita.testCaseImplements.TestCase;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertTrue;
-
 public class SingUpTest extends TestCase {
 
     @Test
@@ -18,7 +16,8 @@ public class SingUpTest extends TestCase {
         signupPage.firstNameSendText("Testing");
         signupPage.lastNameInput().sendKeys("Automatización");
         signupPage.phoneInput().sendKeys("77776666");
-        signupPage.setEmailRandom();
+        //signupPage.setEmailRandom();
+        signupPage.emailInput().sendKeys("mmejiaalvarenga@gmail.com");
         signupPage.passwordInput().sendKeys("Hola.123456");
         signupPage.confirmPasswordInput().sendKeys("Hola.123456");
         signupPage.acceptTermsCheckClick();

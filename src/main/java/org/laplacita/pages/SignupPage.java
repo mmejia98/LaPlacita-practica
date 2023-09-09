@@ -51,6 +51,7 @@ public class SignupPage extends Page{
     }
 
     public void singUpButtonClick(){
+        this.scrollWebElement(findElement(singUpButton));
         this.fluentWaitWebElementClickable(findElement(singUpButton)).click();
     }
 
@@ -63,8 +64,12 @@ public class SignupPage extends Page{
     }
 
     public Boolean isSuccess(){
-        this.isTextPresent("Registro exitoso!");
-        return browser.getPageSource().contains("Registro exitoso!");
+        try{
+            this.isTextPresent("Registro exitoso!");
+            return browser.getPageSource().contains("Registro exitoso!");
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private String getEmail(){

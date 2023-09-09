@@ -21,7 +21,12 @@ public class OrderPage extends Page{
     @FindBy(xpath = "//div[contains(@class,'card option')]")
     private List<WebElement> metodosPago;
 
+    @FindBy(xpath = "//button[contains(text(),'Finalizar compra')]")
+    private WebElement finalizarCompra;
+
     public void setDireccion(){
+        this.waitElement();
+        scrollWebElement(direccion);
         this.fluentWaitWebElement(direccion).click();
     }
 
@@ -44,12 +49,17 @@ public class OrderPage extends Page{
     }
 
     public void setMetodoPago(IMetodoPago metodo){
+        this.waitElement();
         for (WebElement metodoPago : metodosPago){
             if(metodo.getName().contains(metodoPago.findElement(By.xpath("div/h4")).getText())){
                 metodoPago.click();
                 break;
             }
         }
+    }
+
+    public void finalizarCompraClick(){
+        this.fluentWaitWebElement(finalizarCompra).click();
     }
 
 }

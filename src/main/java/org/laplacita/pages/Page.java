@@ -100,4 +100,12 @@ public class Page {
         }
     }
 
+    public void waitElement(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
