@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.function.Function;
 
 public class Page {
@@ -19,6 +20,10 @@ public class Page {
         return browser.findElement(loc);
     }
 
+    public List<WebElement> findElements(By loc){
+        return browser.findElements(loc);
+    }
+
     public void findElementAndClick(WebElement elem){
         WebElement link = this.fluentWaitWebElement(elem);
         link.click();
@@ -30,6 +35,14 @@ public class Page {
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(NoSuchElementException.class);
         return wait.until(ExpectedConditions.visibilityOf(elem));
+    }
+
+    public List<WebElement> fluentWaitWebElements(By loc){
+        Wait<WebDriver> wait = new FluentWait<>(this.browser)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class);
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(loc));
     }
 
     public WebElement fluentWaitWebElementClickable(WebElement element){
@@ -59,11 +72,19 @@ public class Page {
                 .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class);
-        wait.until(new Function<WebDriver, Boolean>(){
-           public Boolean apply(WebDriver driver){
-               return driver.getPageSource().contains(txt);
-           }
-        });
+        wait.until(driver -> driver.getPageSource().contains(txt));
+    }
+
+    public boolean isTextPresentInWebElement(By loc, String text){
+        Wait<WebDriver> wait = new FluentWait<>(this.browser)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class);
+        return wait.until(ExpectedConditions.textToBePresentInElementLocated(loc, text));
+    }
+
+    public boolean equalsPathUrl(final String pathUrl){
+        return this.browser.getCurrentUrl().equals(pathUrl);
     }
 
     private void scrollToElement(WebElement element){
@@ -100,12 +121,16 @@ public class Page {
         }
     }
 
-    public void waitElement(){
+    public void waitElement() {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean elementExists(By loc){
+        return !browser.findElements(loc).isEmpty();
     }
 
 }

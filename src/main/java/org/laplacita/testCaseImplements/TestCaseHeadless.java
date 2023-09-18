@@ -3,18 +3,22 @@ package org.laplacita.testCaseImplements;
 import org.laplacita.utilities.PLException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-public class TestCase {
+public class TestCaseHeadless {
+
     protected static WebDriver browser;
 
     @BeforeClass
     public static void beforeClass(){
-        browser = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        browser = new ChromeDriver(options);
     }
 
     @BeforeMethod
@@ -25,13 +29,8 @@ public class TestCase {
     @AfterMethod
     public void checkFail(ITestResult result){
         if(!result.isSuccess()){
-            //PLException.addScreenshot(browser);
+            PLException.addScreenshot(browser);
         }
-    }
-
-    @AfterMethod
-    public void afterMethod(){
-        //browser.close();
     }
 
     @AfterClass
@@ -45,7 +44,4 @@ public class TestCase {
         }
     }
 
-    public void navigateBack(){
-        this.browser.navigate().back();
-    }
 }

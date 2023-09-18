@@ -33,5 +33,15 @@ public class TestProductDelete extends TestCaseLoginCustomer {
         HeaderPage header = new HeaderPage(browser);
         header.searchItems(producto);
     }
+    
+    @Test(groups = {"smoke"})
+    public void test3(){
+        System.out.println("Smoke test 1");
+    }
+
+    @Test(groups = {"smoke"})
+    public void test4(){
+        System.out.println("Smoke test 2");
+    }
 
 }
