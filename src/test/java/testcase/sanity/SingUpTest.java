@@ -73,6 +73,7 @@ public class SingUpTest extends TestCase {
         assertTrue(signupPage.checkValidationMessage(signupPage.emailInput(), "Requerido"));
         assertTrue(signupPage.checkValidationMessage(signupPage.passwordInput(), "Requerido."));
         assertTrue(signupPage.checkValidationMessage(signupPage.acceptTerms(), "Términos y condiciones"));
+        assertTrue(signupPage.singUpButton().isDisplayed());
     }
 
 }

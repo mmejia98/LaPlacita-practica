@@ -67,6 +67,10 @@ public class SignupPage extends Page{
         this.findElement(acceptTerms).sendKeys(Keys.SPACE);
     }
 
+    public WebElement singUpButton(){
+        return this.findElement(singUpButton);
+    }
+
     public void singUpButtonClick(){
         this.scrollWebElement(findElement(singUpButton));
         this.fluentWaitWebElementClickable(findElement(singUpButton)).click();
